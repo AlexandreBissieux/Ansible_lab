@@ -1,7 +1,9 @@
 [nodes]
-node0 ansible_host=172.19.153.220
-node1 ansible_host=172.19.145.243
-node2 ansible_host=172.19.144.1
+node0 ansible_ssh_host=172.19.153.220
+node1 ansible_ssh_host=172.19.145.243
+node2 ansible_ssh_host=172.19.144.1
 
 [all:vars]
-ansible_connection
+ansible_connection=ssh
+ansible_user=ansible
+ansible_become = yes
