@@ -1,9 +1,11 @@
 [nodes]
-node0 ansible_ssh_host=172.19.153.220
-node1 ansible_ssh_host=172.19.145.243
-node2 ansible_ssh_host=172.19.144.1
+node0 ansible_ssh_host=172.19.144.1
+node1 ansible_ssh_host=172.19.153.220
+node2 ansible_ssh_host=172.19.145.243
 
 [all:vars]
 ansible_connection=ssh
 ansible_user=ansible
 ansible_become = yes
+ansible_become_method = sudo
+ansible_become_user = root
