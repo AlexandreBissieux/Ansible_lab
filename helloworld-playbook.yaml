@@ -1,0 +1,11 @@
+#helloworld-playbook.yaml
+# one play, one task
+
+---
+
+- name: "Hello World **play**"
+  hosts: localhost
+  tasks:
+    - name: "Hello World **task**"
+      debug:
+        msg: "Hello World!"
