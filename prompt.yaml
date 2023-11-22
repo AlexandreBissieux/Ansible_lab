@@ -1,0 +1,24 @@
+#prompt.yaml
+
+---
+
+- hosts: localhost
+  vars_prompt:
+    - name: "name"
+      prompt: "What is your name?"
+      private: no
+    - name: favcolor
+      prompt: "What is your favorite color?"
+      private: no
+    - name: "my_password"
+      prompt: "Enter password"
+      private: yes
+      encrypt: "sha512_crypt"
+      confirm: yes
+      salt_size: 7
+  tasks:
+    - debug:
+        msg: |
+            {{ name }} loves {{ favcolor }} 
+
+            His password is {{ my_password }}

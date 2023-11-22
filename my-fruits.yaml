@@ -1,0 +1,16 @@
+#my-fruits.yaml
+
+---
+
+- name: "loop illustration"
+  hosts: localhost
+  vars:
+    fruits:
+     - apple
+     - orange
+     - pineapple
+  tasks:
+    - name: "Print my fruits"
+      debug:
+        msg: "{{ item }} tour de boucle"
+      loop: "{{ fruits }}"
