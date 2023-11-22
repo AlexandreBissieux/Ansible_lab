@@ -10,10 +10,11 @@
       - orange
       - pineapple
   tasks:
-    - name: "loop + register"
+    - name: "loop register"
       shell: "echo {{ item }}"
       loop: "{{ fruits }}"
       register: echo
     - name: "print result"
       debug:
-        msg: "{{ echo }}"
+        msg: "{{ item.stdout_lines }}"
+      loop: "{{ echo.results }}"
