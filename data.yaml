@@ -1,0 +1,10 @@
+#data.yaml
+
+---
+
+group: "omega"
+users:
+  - name: alfa
+    password: testtest
+  - name: beta
+    password: testtest

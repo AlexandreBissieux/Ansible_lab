@@ -1,0 +1,15 @@
+#print-out-data.yaml
+
+---
+
+- name: print out data.yaml
+  hosts: localhost
+  gather_facts: False
+  vars_files:
+    - data.yaml
+  tasks:
+  - debug:
+      msg: "{{ item.name }} with weak password {{ item.password }}"
+    loop: "{{ users }}"
+  - debug:
+      msg: "{{ group }}"
