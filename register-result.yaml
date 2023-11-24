@@ -1,0 +1,16 @@
+#register-result.yaml
+
+---
+
+- name: "Register results of a command"
+  hosts: localhost
+  tasks:
+    - command: /bin/false
+      register: result
+      ignore_errors: True
+    
+    - command: echo "print when result is failed"
+      when: result is failed
+
+    #In older versions of ansible use ''success'', now both are valid but succeeded uses the correct tense
+    -command:
