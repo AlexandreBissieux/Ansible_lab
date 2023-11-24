@@ -1,0 +1,37 @@
+#test-file-paths
+
+---
+
+- name: "Testing paths"
+  hosts: localhost
+  gather_facts: False
+  vars:
+    mypath: /home/
+    path2: /root
+  tasks:
+    - debug:
+        msg: "path is a directory"
+      when: mypath is directory
+
+    - debug:
+        msg: "path is a file"
+      when: mypath is file
+
+    - debug:
+        msg: "path is a symlink"
+      when: mypath is link
+
+    - debug:
+        msg: "path already exists"
+      when: mypath is exists
+
+    - debug:
+        msg: "path is {{ (mypath is abs)|ternary('absolute','relative') }}"
+
+    - debug:
+        msg: "path is the same file as path2"
+      when: mypath is same_file(path2)
+
+    - debug:
+        msg: "path is a mount"
+      when: mypath is mount
