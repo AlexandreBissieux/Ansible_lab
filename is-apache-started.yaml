@@ -1,0 +1,18 @@
+#is-apache-started
+
+---
+
+- name: "Start the apache2 service if it is not"
+  hosts: nodes
+  gather_facts: true
+  tasks:
+    - name: "Start the apache2 service"
+      register: apache2out
+      shell: "systemctl start apache2"
+      changed_when: "'running' not in apache2out.stdout"
+    - name: "Stop the apache2 service"
+      register: apache2out
+      shell: "systemctl stop apache2"
+      changed_when: "'running' in apache2out.stdout"
+    - debug:
+        msg: "{{ apache2out.stdout }}"
