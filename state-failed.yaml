@@ -1,0 +1,21 @@
+#state-failed.yaml
+
+---
+
+- name: "Make test with failed state" 
+  hosts: nodes
+  tasks:
+    - name: Making sure the /tmp has more than 1gb
+      shell: "df -h /tmp | grep -v Filesystem | awk '{print $4}' | cut -d G -f1"
+      register: tmpspace      
+      failed_when: "tmpspace.stdout[7]|float < 1"
+
+    - name: Making sure the /tmp has more than 4gb
+      shell: "df -h /tmp | grep -v Filesystem | awk '{print $4}' | cut -d G -f1"
+      register: tmpspace
+      failed_when: "tmpspace.stdout[7]|float < 8"
+
+    - name: Making sure the /tmp has more than 2gb
+      shell: "df -h /tmp | grep -v Filesystem | awk '{print $4}' | cut -d G -f1"
+      register: tmpspace
+      failed_when: "tmpspace.stdout[7]|float < 2"
