@@ -5,12 +5,31 @@
 - name: "Register results of a command"
   hosts: localhost
   tasks:
-    - command: /bin/false
+    - name: "False"
+      command: /bin/true
       register: result
       ignore_errors: True
     
-    - command: echo "print when result is failed"
+    - name: "Is failed?"
+      command: echo "print when result is failed"
       when: result is failed
 
     #In older versions of ansible use ''success'', now both are valid but succeeded uses the correct tense
-    -command:
+    - name: "Is succeeded?"
+      command: echo "print when result is succeed"
+      when: result is succeeded
+
+    - name: "Is skipped?"
+      command: echo "print when result is skipped"
+      when: result is skipped
+    - name: "Is defined?"
+      command: echo "print when result is defined"
+      when: result is defined
+
+    - name: "Set facts"
+      set_fact:
+        result:
+
+    - name: "Is not defined?"
+      command: echo "print when result is not defined"
+      when: ! result is defined
