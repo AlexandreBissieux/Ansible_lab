@@ -1,0 +1,23 @@
+#1st-block.yaml
+
+---
+
+- name: "First block test"
+  hosts: nodes
+  gather_facts: True
+  tasks:
+    - name: Install Apache
+      block:
+        - apt:
+            name:
+              - httpd
+              - memcached
+            state: latest
+        - template:
+            src: templates/src.j2
+            dest: /etc/foo.conf
+        - service:
+            name: httpd
+            state: started
+            enabled: True
+      when: ansible_distribution == 'Debian'

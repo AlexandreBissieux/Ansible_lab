@@ -3,7 +3,7 @@
 ---
 
 - name: print out distribution
-  hosts: localhost
+  hosts: nodes
   gather_facts: True
   tasks:
     - name: "print output"
