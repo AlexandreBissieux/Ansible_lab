@@ -3,7 +3,7 @@
 ---
 
 - name: "First block test"
-  hosts: nodes
+  hosts: localhost
   gather_facts: True
   tasks:
     - name: Install Apache

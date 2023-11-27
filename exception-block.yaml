@@ -1,0 +1,24 @@
+#exception-block.yaml
+
+---
+
+- name: Exception block test
+  hosts: localhost
+  tasks:
+    - name: "Attempt a graceful roll back demo"
+      block:
+        - debug:
+            msg: 'I execute daily'
+        - command: /bin/false
+        - debug:
+            msg: 'I never execute, due to the above task failing'
+      rescue:
+        - debug:
+            msg: "I caught an error"
+        - command: /bin/false
+        - debug:
+            msg: "I also never execute :-("
+      always:
+        - debug:
+            msg: "This always executes"
+        
