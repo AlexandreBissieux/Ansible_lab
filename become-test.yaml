@@ -1,0 +1,17 @@
+#become-test
+
+---
+
+- name: "Play 1: demo playbook"
+  hosts: nodes
+  remote_user : ansible
+  become: yes
+  become_user: root
+  become_method: sudo
+  tasks:
+    - name:  "Test"
+      command: "ls /root"
+      register: variable
+    - name: "Print"
+      debug:
+        msg: "{{ variable }}"
