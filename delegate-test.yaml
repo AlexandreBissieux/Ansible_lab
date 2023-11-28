@@ -1,0 +1,17 @@
+#delegate-test
+
+---
+
+- name: "Test with delegate option"
+  hosts: node1
+  serial: 5
+  tasks:
+  - name: take out of load balancer pool
+    command: touch /home/alexandre/test1
+    delegate_to: node2
+  - name: actual steps would go here
+    apt:
+      name: apache2
+      state: absent
+  - name: add back to load balancer pool
+    local_action: command touch /home/alexandre/test2
