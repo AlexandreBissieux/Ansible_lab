@@ -2,7 +2,7 @@
 
 ---
 
-- name: "Make test with failed state" 
+- name: "Make test with failed state"
   hosts: nodes
   tasks:
     - name: Making sure the /tmp has more than 1gb

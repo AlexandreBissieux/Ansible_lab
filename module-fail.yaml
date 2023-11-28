@@ -1,0 +1,16 @@
+#module-fail.yaml
+
+---
+
+- name: "End play if condition is meet"
+  hosts: localhost
+  vars:
+    - variable: "test"
+  tasks:
+    - name: Test
+      debug:
+        msg: "Test"
+    - name: "Fail"
+      fail:
+        msg: "End play with failed status"
+      when: variable is defined
