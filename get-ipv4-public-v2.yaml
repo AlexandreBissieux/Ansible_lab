@@ -2,10 +2,10 @@
 
 ---
 
-- name: "get ipv4 public address"
-  hosts: localhost
-  gather_facts: True
-  tasks:
+#- name: "get ipv4 public address"
+#  hosts: localhost
+#  gather_facts: True
+- tasks:
     - ipinfoio_facts:
     - set_fact:
         dns_name: "{{ ansible_facts.ip }}.xip.io"

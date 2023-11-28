@@ -1,0 +1,21 @@
+#inclusions.yaml
+
+---
+
+- name: "Test with inclusions"
+  hosts: nodes
+  tasks:
+    - debug:
+        msg: task1
+    - name: Include task list in play
+      include_tasks: get-ipv4-public.yaml
+    - debug:
+        msg: task10
+- hosts: nodes
+  gather_facts: true
+  tasks:
+    - debug:
+        msg: task1
+    - name: Include task list in play only if the condition is true
+      include_tasks: get-ipv4-public-v2.yaml
+      when: hostvar is defined
