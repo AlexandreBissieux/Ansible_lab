@@ -2,22 +2,40 @@
 # tasks file for newrole
 
 - name: be sure ntp is installed
-  apt:
-    name: ntp
-    state: installed
-  tags: ntp
+  hosts: nodes
+  tasks:
+    - name: apache
+      apt:
+        name: apache2
+        state: present
+      tags: apache
 
-- name: be sure ntp is configured
-  template:
-    src: ntp.conf.j2
-    dest: /etc/ntp.conf
-  notify:
-    - restart ntpd
-  tags: ntp
+    - name: be sure apache is configured
+      template:
+        src: ../files/ntp.conf.j2
+        dest: /etc/ntpsec/ntp.conf
+      notify:
+        - restart apache
+      tags: apache
 
-- name: be sure ntpd is running and enabled
-  service:
-    name: ntpd
-    state: started
-    enabled: yes
-  tags: ntp
+    #- name: be sure ntpd is running and enabled
+    #  service:
+     #   name: ntpd
+      #  state: started
+       # enabled: yes
+    
+
+      #notify:
+      #  - restart ntpd
+      #tags: ntp
+
+    #- name: "Restart ntpd"
+    #  service:
+    #    name: ntpd
+    #    state: restarted
+
+  #handlers:
+    #- name: restart apache
+      #service:
+      #  name: apache2
+      #  state: restarted
