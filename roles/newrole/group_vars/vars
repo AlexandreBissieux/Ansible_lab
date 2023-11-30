@@ -1,0 +1,6 @@
+variable_sensible1: "{{ vault_variable_sensible1 }}"
+variable_sensible2: "{{ vault_variable_sensible2 }}"
+variable_sensible3: "{{ vault_variable_sensible3 }}"
+
+variable_normale1: test4
+variable_normale2: test5

@@ -1,0 +1,14 @@
+#playbook-vault.yaml
+
+---
+
+- name: "demo ansible-vault"
+  hosts: localhost
+  vars_files:
+    - ../group_vars/vault
+    - ../group_vars/vars
+  gather_facts: False
+  tasks:
+    - name: "affiche le secret"
+      debug:
+        msg: "{{ variable_normale1 }} {{ variable_normale2 }} {{ variable_sensible1 }} {{ variable_sensible2 }} {{ variable_sensible3 }}"
