@@ -1,7 +1,7 @@
 [local]
 localhost ansible_connection=local ansible_become=no
 [nodes]
-node1 ansible_ssh_host=172.18.230.223
+projet5 ansible_ssh_host=172.18.230.223
 
 [all:vars]
 ansible_connection=ssh

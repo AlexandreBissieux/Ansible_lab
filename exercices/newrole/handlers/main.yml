@@ -1,2 +1,8 @@
 ---
 # handlers file for newrole
+
+  - name: Handler de test
+    debug:
+      msg: "Je m'exécute. Oh regardez !! Un path ! {{ path }} "
+
+
