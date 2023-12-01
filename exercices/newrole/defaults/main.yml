@@ -1,2 +1,12 @@
 ---
 # defaults file for newrole
+
+- name: "Création d'un utilisateur lambda"
+  hosts: node1
+  gather_facts: True
+  vars_files:
+    - /home/alexandre/Ansible_lab/exercices/newrole/vars/main.yml
+  tasks:
+    - include: "{{ path }}/tasks/main.yml"
+  handlers:
+    - include: "{{ path }}/handlers/main.yml"
