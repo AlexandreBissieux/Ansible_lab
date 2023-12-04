@@ -14,4 +14,4 @@
     loop: "{{ getent_group | dict2items | map(attribute='value') | map(attribute='1') }}"
     register: result
   - debug:
-      msg: "{{ result | dict2items | head 20 }}"
+      msg: "{{ result['results'][0]['item'] }}"
