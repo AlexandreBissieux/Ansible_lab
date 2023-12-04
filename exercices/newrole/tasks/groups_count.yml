@@ -1,0 +1,17 @@
+---
+# play which gives the gid of the group to create with the new user
+- name: Calculate GID
+  hosts: projet5
+  tasks:
+  - name: Get all groups info
+    getent:
+      database: group
+      split: ":"
+  - debug:
+      var: getent_group['Debian-gdm'][1]
+  - name: Register loop output as a variable
+    shell: "echo {{ item }}"
+    loop: "{{ getent_group | dict2items | map(attribute='value') | map(attribute='1') }}"
+    register: result
+  - debug:
+      msg: "{{ result | dict2items | head 20 }}"

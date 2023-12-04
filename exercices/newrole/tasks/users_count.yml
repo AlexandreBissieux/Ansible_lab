@@ -1,0 +1,16 @@
+---
+# play which gives the uid of the new user
+- name: Calculate UID
+  hosts: projet5
+  tasks:
+  - name: Get all users info
+    getent:
+      database: passwd
+      split: ":"
+  #- debug:
+  #    var: getent_passwd
+  - name: Register loop output as a variable
+    shell: "echo {{ item }}"
+    loop: "{{ getent_passwd | dict2items | map(attribute='value') | map(attribute='1') }}"
+    register: result
+    
