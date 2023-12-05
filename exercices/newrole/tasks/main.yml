@@ -1,14 +1,17 @@
 ---
 # main tasks file
 
+
 - name: "Tache de test"
+  import_playbook: users_count.yml
+  import_playbook: groups_count.yml
   debug:
     msg: "Je m'exécute. Oh regardez !! Un path ! {{ path }} "
-- name:  "user"
+- name:  "username"
   prompt: "Quel est le nom de l'utilisateur"
   private: no
   user:
-    name: "{{ name }}"
-    uid:
-    group:
+    name: "{{ username }}"
+    uid: "{{ result_users }}"
+    group: "{{ result_groups }}"
 
