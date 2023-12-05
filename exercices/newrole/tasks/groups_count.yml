@@ -2,8 +2,6 @@
 # play which gives the gid of the group to create with the new user
 - name: Calculate GID
   hosts: projet5
-  vars:
-    final_gid: "0"
   tasks:
   - name: Get all groups info
     getent:

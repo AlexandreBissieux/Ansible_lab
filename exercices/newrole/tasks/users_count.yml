@@ -7,10 +7,13 @@
     getent:
       database: passwd
       split: ":"
-  #- debug:
-  #    var: getent_passwd
-  - name: Register loop output as a variable
-    shell: "echo {{ item }}"
+  - name: Create a list of uid
+    set_fact:
+      unique_list: "{{ (unique_list | default([]) + [item]) | unique | map('int')}}"
     loop: "{{ getent_passwd | dict2items | map(attribute='value') | map(attribute='1') }}"
-    register: result
-    
+  - name: Get greater value from the list
+    set_fact:
+      result: "{{ unique_list | reject('ge', 3999) | list | max }}"
+  - name: Print the value
+    debug:
+      msg: "The index of the greatest number in the list is {{ result }}"
