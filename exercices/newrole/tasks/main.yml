@@ -2,16 +2,25 @@
 # main tasks file
 
 
-- name: "Tache de test"
-  import_playbook: users_count.yml
-  import_playbook: groups_count.yml
+- name: Tache de test
+  debug:
+    msg: "voilà une action"
+
+- name: Debug
   debug:
     msg: "Je m'exécute. Oh regardez !! Un path ! {{ path }} "
-- name:  "username"
-  prompt: "Quel est le nom de l'utilisateur"
-  private: no
-  user:
-    name: "{{ username }}"
-    uid: "{{ result_users }}"
-    group: "{{ result_groups }}"
+
+- name: Get uid
+  import_tasks: users_count.yml
+
+- name: Get gid
+  import_tasks: groups_count.yml
+
+- name: Create user with given infos
+  debug:
+    msg: " username : {{ username }} uid : {{ result_users }} gid : {{ result_groups }}"
+  #user:
+    #name: "{{ username }}"
+    #uid: "{{ result_users }}"
+    #group: "{{ result_groups }}"
 

@@ -3,14 +3,20 @@
 
 - name: "Création d'un utilisateur lambda"
   hosts: projet5
+  vars_prompt:
+
+    - name: username
+      prompt: "Quel est le nom du user ? "
+      private: false
+
   gather_facts: True
   vars_files:
     - /home/alexandre/Ansible_lab/exercices/newrole/vars/main.yml
   tasks:
     - include: "{{ path }}/tasks/main.yml"
-    - name: "Test de l'inclusion des handlers"
-      command: "ls /home"
-      notify: Handler de test
-  handlers:
-    - import_tasks: "{{ path }}/handlers/main.yml"
+    #- name: "Test de l'inclusion des handlers"
+      #command: "ls /home"
+      #notify: Handler de test
+  #handlers:
+    #- import_tasks: "{{ path }}/handlers/main.yml"
     

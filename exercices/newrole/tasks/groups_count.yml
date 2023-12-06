@@ -1,19 +1,40 @@
 ---
 # play which gives the gid of the group to create with the new user
-- name: Calculate GID
-  hosts: projet5
-  tasks:
-  - name: Get all groups info
-    getent:
-      database: group
-      split: ":"
-  - name: Create a list of gid
-    set_fact:
-      unique_list: "{{ (unique_list | default([]) + [item]) | unique | map('int')}}"
-    loop: "{{ getent_group | dict2items | map(attribute='value') | map(attribute='1') }}"
-  - name: Get greater value from the list
-    set_fact:
-      result: "{{ unique_list | reject('ge', 3999) | list | max }}"
-  - name: Print the value
-    debug:
-      msg: "The index of the greatest number in the list is {{ result }}"
+
+- name: Get all groups info
+  getent:
+    database: group
+    split: ":"
+
+- name: Create a list of gid
+  set_fact:
+    unique_list: "{{ (unique_list | default([]) + [item]) | unique | map('int')}}"
+  loop: "{{ getent_group | dict2items | map(attribute='value') | map(attribute='1') }}"
+
+- name: Get greater value from the list
+  set_fact:
+    result_groups: "{{ unique_list | reject('ge', 3999) | list | max }}"
+
+- name: Calculate final value if result is equal or greater than 3000
+  set_fact:
+    result_groups: "{{ result_groups | int +1 }}"
+  when: " (result_groups | int >= 3000 and result_groups | int <= 3999) "
+
+- name: Calculate final value if result is lower than 3000
+  set_fact:
+    result_groups: 3000
+  when: " result_groups | int < 3000 "
+
+- name: Send error message if gid range is exceeded on remote host
+  debug:
+    msg: "Error ! Valid gid range exceeded, gid calculated : {{ result_groups }}, resetting the value..."
+  when: " result_groups | int > 3999 "
+
+- name: Reset value of result_groups to interrupt execution
+  set_fact:
+    result_groups: null
+  when: " result_groups | int > 3999 "  
+  
+- name: Print the value
+  debug:
+    msg: "The index of the greatest number in the list is {{ result_groups }}"
