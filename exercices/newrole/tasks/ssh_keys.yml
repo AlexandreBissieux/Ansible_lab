@@ -1,0 +1,11 @@
+---
+# play which creates the user with the infos given by other files
+
+- name: Create destination folder
+  file:
+    path: "/home/{{ username }}/.ssh/"
+    state: directory
+    mode: '0755'
+- name: Generate ssh keys in .ssh /home directory of the created user
+  community.crypto.openssh_keypair:
+    path: "/home/{{ username }}/.ssh/nodes.key"

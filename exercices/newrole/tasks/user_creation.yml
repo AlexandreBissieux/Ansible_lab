@@ -1,0 +1,19 @@
+---
+# play which creates the user with the infos given by other files
+
+- name: Create group with given infos
+  #debug:
+    #msg: "Group creation"
+  group:
+    name: "{{ username }}"
+    state: present
+    gid: "{{ result_groups }}"
+
+- name: Create user with given infos
+  #debug:
+    #msg: "User creation"
+  user:
+    name: "{{ username }}"
+    comment: "{{ username }}"
+    uid: "{{ result_users }}"
+    state: present

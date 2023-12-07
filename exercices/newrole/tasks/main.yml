@@ -16,11 +16,12 @@
 - name: Get gid
   import_tasks: groups_count.yml
 
-- name: Create user with given infos
+- name: Print given infos
   debug:
     msg: " username : {{ username }} uid : {{ result_users }} gid : {{ result_groups }}"
-  #user:
-    #name: "{{ username }}"
-    #uid: "{{ result_users }}"
-    #group: "{{ result_groups }}"
 
+- name: Create user with given infos
+  import_tasks: user_creation.yml
+
+- name: Create ssh private keys in created user directory
+  import_tasks: ssh_keys.yml
